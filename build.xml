@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE project [
+<!ENTITY baseBuild SYSTEM "../org.homeunix.thecave.build/baseBuild.xml.inc">
+]>
+<project name="JSP Redirect" default="jar" basedir=".">
+
+	<!-- Version number and other build-specific properties -->
+	<property file="etc/build.properties"/>
+
+	<!-- Set up all the project specific properties -->
+	<property name="PROJECT_NAME" value="JSP Redirect"/>
+	<property name="PROJECT_SHORT_NAME" value="moss-jsp-redirect"/>
+	<property name="PROJECT_DESCRIPTION" value="JSP Redirect filter"/>
+	<property name="PROJECT_COPYRIGHT" value="Copyright Wyatt Olson"/>
+
+    <path id="classpath">
+        <fileset dir="lib" includes="**/*.jar"/>
+    	<fileset dir="WebContent/WEB-INF/lib" includes="**/*.jar"/>
+    </path>
+	
+	&baseBuild;
+
+</project>

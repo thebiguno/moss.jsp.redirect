@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<redirects>
+	<redirect pattern="(.*)/deutsch/(.*)$"><![CDATA[$1/de/$2]]></redirect>
+	
+	<redirect pattern="(.*)/(?!en)(\w{2})/(\w*\.jsp)?"><![CDATA[http://translate.google.com/translate?hl=$2&sl=en&u=$1/en/$3]]></redirect>
+</redirects>
