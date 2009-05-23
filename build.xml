@@ -15,7 +15,6 @@
 
     <path id="classpath">
         <fileset dir="lib" includes="**/*.jar"/>
-    	<fileset dir="WebContent/WEB-INF/lib" includes="**/*.jar"/>
     </path>
 	
 	&baseBuild;
