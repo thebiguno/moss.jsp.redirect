@@ -17,6 +17,10 @@
 		<filter-name>RedirectFilter</filter-name>
 		<filter-class>org.homeunix.thecave.moss.jsp.redirect.RedirectFilter</filter-class>
 		<init-param>
+			<param-name>config</param-name>
+			<param-value>redirect.xml</param-value>
+		</init-param>
+		<init-param>
 			<param-name>refresh-interval</param-name>
 			<param-value>5</param-value>
 		</init-param>

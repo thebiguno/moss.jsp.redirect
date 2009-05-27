@@ -70,7 +70,7 @@ public class RedirectFilter implements Filter {
 		lastConfigReload = System.currentTimeMillis();
 		System.out.println("Loading filters");
 		try {
-			String confFileName = filterConfig.getInitParameter("conf");
+			String confFileName = filterConfig.getInitParameter("config");
 			if (confFileName == null || confFileName.length() == 0)
 				confFileName = "redirect.xml";
 			InputStream is = filterConfig.getServletContext().getResourceAsStream("/WEB-INF/" + confFileName);
