@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <redirects>
+	<!-- Redirect from the full language to the language abbreviation -->
 	<redirect pattern="(.*)/deutsch/(.*)$"><![CDATA[$1/de/$2]]></redirect>
-	
+	<redirect pattern="(.*)/espanol/(.*)$"><![CDATA[$1/es/$2]]></redirect>
+	<!-- For languages other than 'en', redirect to Google Translation -->
 	<redirect pattern="(.*)/(?!en)(\w{2})/(\w*\.jsp)?"><![CDATA[http://translate.google.com/translate?hl=$2&sl=en&u=$1/en/$3]]></redirect>
 </redirects>
