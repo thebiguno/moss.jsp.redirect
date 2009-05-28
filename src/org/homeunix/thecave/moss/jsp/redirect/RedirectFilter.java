@@ -76,7 +76,7 @@ public class RedirectFilter implements Filter {
 			InputStream is = filterConfig.getServletContext().getResourceAsStream("/WEB-INF/" + confFileName);
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-			Schema schema = sf.newSchema(new StreamSource(RedirectFilter.class.getResourceAsStream("redirect.xsd")));
+			Schema schema = sf.newSchema(new StreamSource(this.getClass().getResourceAsStream("redirect.xsd")));
 			dbf.setSchema(schema);
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			Document doc = db.parse(is);

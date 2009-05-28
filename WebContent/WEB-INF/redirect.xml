@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<!DOCTYPE redirects PUBLIC "-//Moss//Moss Redirect Filter Confiugration//EN" "http://moss.thecave.homeunix.org/dtds/redirect.dtd">
-<redirects>
+<redirects xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' 
+		xsi:noNamespaceSchemaLocation='http://moss.thecave.homeunix.org/schema/2009/Redirect'>
 	<redirect>
 		<pattern><![CDATA[(.*)/deutsch/(.*)$]]></pattern>
 		<destination><![CDATA[destination="$1/de/$2]]></destination>

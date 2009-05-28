@@ -1,2 +1,5 @@
+1.0.1.0 - May 28 2009
+-Converted filter.xml to use XML Schema for validation
+
 1.0.0.0 - May 21 2009
 -Initial stable version 
