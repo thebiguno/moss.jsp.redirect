@@ -59,7 +59,7 @@ public class RedirectFilter implements Filter {
 				scheduleInterval = 5;
 		}
 		catch (NumberFormatException nfe){
-			scheduleInterval = 60;
+			scheduleInterval = 600;
 		}
 		
 		refreshInterval = scheduleInterval * 1000;
