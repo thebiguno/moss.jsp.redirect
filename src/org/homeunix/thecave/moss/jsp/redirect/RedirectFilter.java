@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,16 +20,13 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.XMLConstants;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.homeunix.thecave.moss.common.LogUtil;
+import org.homeunix.thecave.moss.jsp.redirect.model.Redirect;
+import org.homeunix.thecave.moss.jsp.redirect.model.Redirects;
+
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
 /**
  * Implementation of a simple redirect filter.  Allows the following filter init params:
@@ -46,8 +44,11 @@ public class RedirectFilter implements Filter {
 	private long lastConfigReload = 0;
 	private long refreshInterval;
 	
+	private Logger logger = Logger.getLogger(this.getClass().getName());
+	
 	public void init(FilterConfig config) throws ServletException {
 		filterConfig = config;
+		LogUtil.setLogLevel(config.getInitParameter("log-level"));
 		
 		//Try to parse the init param, if available.
 		int scheduleInterval;
@@ -74,27 +75,21 @@ public class RedirectFilter implements Filter {
 			if (confFileName == null || confFileName.length() == 0)
 				confFileName = "redirect.xml";
 			InputStream is = filterConfig.getServletContext().getResourceAsStream("/WEB-INF/" + confFileName);
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-			Schema schema = sf.newSchema(new StreamSource(this.getClass().getResourceAsStream("redirect.xsd")));
-			dbf.setSchema(schema);
-			DocumentBuilder db = dbf.newDocumentBuilder();
-			Document doc = db.parse(is);
-			doc.getDocumentElement().normalize();
-			
-			//The 'nodes' list now contains all the children of root ('redirects'); each of these should be a 'redirect' element.
-			NodeList nodes = doc.getFirstChild().getChildNodes();
-			
-			for (int i = 0; i < nodes.getLength(); i++) {
-				Node node = nodes.item(i);
-				if (node.getNodeName().equals("redirect")){
-					String patternString = node.getAttributes().getNamedItem("pattern").getNodeValue();
-					String mapTo = node.getTextContent();
-					Pattern pattern = Pattern.compile(patternString, Pattern.CASE_INSENSITIVE);
-					redirects.put(pattern, mapTo);
+
+			XStream xstream = new XStream(new DomDriver());
+			xstream.processAnnotations(Redirects.class);
+
+			Object o = xstream.fromXML(is);
+			if (o instanceof Redirects){
+				Redirects rs = (Redirects) o;
+				for (Redirect r : rs.getRedirects()) {
+                    String patternString = r.getPattern();
+                    String destination = r.getDestination();
+                    Pattern pattern = Pattern.compile(patternString, Pattern.CASE_INSENSITIVE);
+                    redirects.put(pattern, destination);
+                    logger.fine("Adding redirect " + patternString + " to " + destination);
 				}
 			}
-
 		}
 		catch (Exception e){
 			throw new RuntimeException(e);
@@ -115,7 +110,9 @@ public class RedirectFilter implements Filter {
 		for (Pattern pattern : redirects.keySet()) {
 			Matcher matcher = pattern.matcher(fullRequest);
 			if (matcher.matches()){
+				logger.fine("Request " + fullRequest + " matches pattern " + pattern);
 				String redirect = matcher.replaceAll(redirects.get(pattern));
+				logger.fine("Redirecting to " + redirect);
 				((HttpServletResponse) res).sendRedirect(redirect);
 				return;
 			}

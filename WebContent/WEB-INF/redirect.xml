@@ -1,6 +1,11 @@
 <?xml version="1.0"?>
-<redirects xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' 
-		xsi:noNamespaceSchemaLocation='http://moss.thecave.homeunix.org/schema/2009/Redirect'>
+<redirects>
+	<!-- Redirects downloads to SourceForge.net -->
+	<redirect>
+		<pattern><![CDATA[.*/buddi-stable.(dmg)$]]></pattern>
+		<destination><![CDATA[destination="http://downloads.sourceforge.net/buddi/Buddi-3.2.2.7.$1]]></destination>	
+	</redirect>
+
 	<redirect>
 		<pattern><![CDATA[(.*)/deutsch/(.*)$]]></pattern>
 		<destination><![CDATA[destination="$1/de/$2]]></destination>
