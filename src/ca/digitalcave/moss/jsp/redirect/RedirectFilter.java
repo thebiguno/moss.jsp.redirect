@@ -21,8 +21,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.homeunix.thecave.moss.common.LogUtil;
-
+import ca.digitalcave.moss.common.LogUtil;
 import ca.digitalcave.moss.jsp.redirect.model.Redirect;
 import ca.digitalcave.moss.jsp.redirect.model.Redirects;
 

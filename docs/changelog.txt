@@ -1,3 +1,6 @@
+1.1.0.0 - September 6 2009
+-Renamed packages to ca.digitalcave
+
 1.0.2.0 - July 27 2009
 -Moved to XStream for XML parsing
 
