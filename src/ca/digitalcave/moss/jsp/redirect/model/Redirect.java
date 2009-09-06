@@ -1,4 +1,4 @@
-package org.homeunix.thecave.moss.jsp.redirect.model;
+package ca.digitalcave.moss.jsp.redirect.model;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 

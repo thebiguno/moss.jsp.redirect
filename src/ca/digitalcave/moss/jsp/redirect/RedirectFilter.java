@@ -1,7 +1,7 @@
 /*
  * Created on May 28, 2008 by wyatt
  */
-package org.homeunix.thecave.moss.jsp.redirect;
+package ca.digitalcave.moss.jsp.redirect;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,8 +22,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.homeunix.thecave.moss.common.LogUtil;
-import org.homeunix.thecave.moss.jsp.redirect.model.Redirect;
-import org.homeunix.thecave.moss.jsp.redirect.model.Redirects;
+
+import ca.digitalcave.moss.jsp.redirect.model.Redirect;
+import ca.digitalcave.moss.jsp.redirect.model.Redirects;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;

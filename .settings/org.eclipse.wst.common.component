@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-modules id="moduleCoreId" project-version="1.5.0">
-<wb-module deploy-name="org.homeunix.thecave.moss.jsp.redirect">
+<wb-module deploy-name="ca.digitalcave.moss.jsp.redirect">
 <wb-resource deploy-path="/" source-path="/WebContent"/>
 <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
 <property name="java-output-path"/>
-<property name="context-root" value="org.homeunix.thecave.moss.jsp.redirect"/>
+        <property name="context-root" value="ca.digitalcave.moss.jsp.redirect"/>
 </wb-module>
 </project-modules>
