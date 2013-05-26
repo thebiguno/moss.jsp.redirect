@@ -39,17 +39,17 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 public class RedirectFilter implements Filter {
 
 	private Map<Pattern, String> redirects;
-	
+
 	private FilterConfig filterConfig;
 	private long lastConfigReload = 0;
 	private long refreshInterval;
-	
+
 	private Logger logger = Logger.getLogger(this.getClass().getName());
-	
+
 	public void init(FilterConfig config) throws ServletException {
 		filterConfig = config;
 		LogUtil.setLogLevel(config.getInitParameter("log-level"));
-		
+
 		//Try to parse the init param, if available.
 		int scheduleInterval;
 		try {
@@ -62,10 +62,10 @@ public class RedirectFilter implements Filter {
 		catch (NumberFormatException nfe){
 			scheduleInterval = 600;
 		}
-		
+
 		refreshInterval = scheduleInterval * 1000;
 	}
-	
+
 	private synchronized void loadFilters(){
 		redirects = Collections.synchronizedMap(new LinkedHashMap<Pattern, String>());
 		lastConfigReload = System.currentTimeMillis();
@@ -83,11 +83,11 @@ public class RedirectFilter implements Filter {
 			if (o instanceof Redirects){
 				Redirects rs = (Redirects) o;
 				for (Redirect r : rs.getRedirects()) {
-                    String patternString = r.getPattern();
-                    String destination = r.getDestination();
-                    Pattern pattern = Pattern.compile(patternString, Pattern.CASE_INSENSITIVE);
-                    redirects.put(pattern, destination);
-                    logger.fine("Adding redirect " + patternString + " to " + destination);
+					String patternString = r.getPattern();
+					String destination = r.getDestination();
+					Pattern pattern = Pattern.compile(patternString, Pattern.CASE_INSENSITIVE);
+					redirects.put(pattern, destination);
+					logger.fine("Adding redirect " + patternString + " to " + destination);
 				}
 			}
 		}
@@ -102,7 +102,7 @@ public class RedirectFilter implements Filter {
 			chain.doFilter(req, res);
 			return;
 		}
-		
+
 		if (lastConfigReload < System.currentTimeMillis() - refreshInterval)
 			loadFilters();
 
@@ -117,7 +117,7 @@ public class RedirectFilter implements Filter {
 				return;
 			}
 		}
-		
+
 		//Otherwise, just pass the request on
 		chain.doFilter(req, res);
 	}
